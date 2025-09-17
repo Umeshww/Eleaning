@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <!-- Navbar -->
+  <nav class="bg-indigo-700 text-white shadow-md">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold">⚙️ Admin Panel</h1>
+      <div class="space-x-6">
+          <a href="../AdminHome/" class="hover:text-yellow-300">Admin Home</a>
+        <a href="../AdminProfile/" class="hover:text-yellow-300">My Profile</a>
+
+        <a href="../Logout/" class="hover:text-red-400 font-semibold">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Dashboard Content -->
+  <div class="max-w-6xl mx-auto mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+    <!-- Card 1 -->
+    <a href="../AdminReg" class="bg-white shadow-md rounded-2xl p-6 text-center hover:bg-indigo-50 transition">
+      <h2 class="text-lg font-semibold text-indigo-700">➕ Admin Register</h2>
+    </a>
+
+    <!-- Card 2 -->
+    <a href="../ShowAdmin" class="bg-white shadow-md rounded-2xl p-6 text-center hover:bg-indigo-50 transition">
+      <h2 class="text-lg font-semibold text-indigo-700">👨‍💻 Show Admin</h2>
+    </a>
+
+    <!-- Card 3 -->
+    <a href="../ShowStudent/" class="bg-white shadow-md rounded-2xl p-6 text-center hover:bg-indigo-50 transition">
+      <h2 class="text-lg font-semibold text-indigo-700">🎓 Show Students</h2>
+    </a>
+
+    <!-- Card 4 -->
+    <a href="../ShowCourse/" class="bg-white shadow-md rounded-2xl p-6 text-center hover:bg-indigo-50 transition">
+      <h2 class="text-lg font-semibold text-indigo-700">📘 Show Courses</h2>
+    </a>
+
+    <!-- Card 5 -->
+    <a href="../Payment/" class="bg-white shadow-md rounded-2xl p-6 text-center hover:bg-indigo-50 transition">
+      <h2 class="text-lg font-semibold text-indigo-700">💳 Payment</h2>
+    </a>
+
+  </div>
+
+</body>
+</html>

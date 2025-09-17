@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Show Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans min-h-screen flex flex-col">
+
+<!-- Navbar -->
+<nav class="bg-indigo-700 text-white shadow-md">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold">⚙️ Admin Panel</h1>
+    <div class="space-x-6">
+      <a href="../AdminHome/" class="hover:text-yellow-300">Admin Home</a>
+      <a href="../AdminProfile/" class="hover:text-yellow-300">My Profile</a>
+      <a href="../AdminReg" class="hover:text-yellow-300">Admin Register</a>
+      <a href="../ShowAdmin" class="hover:text-yellow-300">Show Admin</a>
+      <a href="../ShowStudent/" class="hover:text-yellow-300">Show Students</a>
+      <a href="../ShowCourse/" class="hover:text-yellow-300">Show Courses</a>
+      <a href="../Payment/" class="hover:text-yellow-300">Payment</a>
+      <a href="../Logout/" class="hover:text-red-400 font-semibold">Logout</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<div class="max-w-6xl mx-auto mt-8 p-6 bg-white shadow-lg rounded-lg">
+  <h1 class="text-2xl font-bold text-gray-800 mb-4">👨‍💼 Show Admin Data</h1>
+
+  {% if obj %}
+  <div class="overflow-x-auto">
+    <table class="min-w-full border border-gray-300 shadow-md rounded-lg">
+      <thead class="bg-indigo-600 text-white">
+        <tr>
+          <th class="px-6 py-3 text-left text-sm font-semibold">Name</th>
+          <th class="px-6 py-3 text-left text-sm font-semibold">Address</th>
+          <th class="px-6 py-3 text-left text-sm font-semibold">Contact</th>
+          <th class="px-6 py-3 text-left text-sm font-semibold">Email</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        {% for d in obj %}
+        <tr class="hover:bg-gray-100">
+          <td class="px-6 py-3">{{ d.name }}</td>
+          <td class="px-6 py-3">{{ d.address }}</td>
+          <td class="px-6 py-3">{{ d.contact }}</td>
+          <td class="px-6 py-3">{{ d.email }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p class="text-gray-600 mt-4">⚠️ No admin data available.</p>
+  {% endif %}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Course</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Navbar -->
+  <!-- Navbar -->
+ <nav class="bg-indigo-700 text-white shadow-md">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <h1 class="text-xl font-bold">⚙️ Admin Panel</h1>
+        <div class="space-x-6">
+            <a href="../AdminHome/" class="hover:text-yellow-300">Admin Home</a>
+
+            <a href="../AdminProfile/" class="hover:text-yellow-300">My Profile</a>
+            <a href="../AdminReg" class="hover:text-yellow-300">Admin Register</a>
+            <a href="../ShowAdmin" class="hover:text-yellow-300">Show Admin</a>
+            <a href="../ShowStudent/" class="hover:text-yellow-300">Show Students</a>
+            <a href="../ShowCourse/" class="hover:text-yellow-300">Show Courses</a>
+            <a href="../Payment/" class="hover:text-yellow-300">Payment</a>
+            <a href="../Logout/" class="hover:text-red-400 font-semibold">Logout</a>
+        </div>
+    </div>
+</nav>
+
+  <!-- Add Course Form -->
+  <div class="container mx-auto mt-10 max-w-lg bg-white p-8 rounded-lg shadow-lg">
+    <h1 class="text-2xl font-bold mb-6 text-center text-blue-600">Add Course</h1>
+
+    <form action="../AddCourse1/" method="post" class="space-y-4" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <div>
+        <label for="course_name" class="block font-medium mb-1">Course Name</label>
+        <input type="text" id="course_name" name="course_name" placeholder="Enter Course Name" required
+               class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+      </div>
+
+      <div>
+        <label for="desc" class="block font-medium mb-1">Description</label>
+        <input type="text" id="desc" name="desc" placeholder="Enter Description" required
+               class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+      </div>
+        <div>
+  <label for="details" class="block font-medium mb-1">Details</label>
+
+  <!-- Toolbar for formatting -->
+  <div class="flex flex-wrap gap-2 mb-2">
+    <button type="button" class="px-2 py-1 bg-blue-600 text-white rounded" onclick="format('bold')"><b>B</b></button>
+    <button type="button" class="px-2 py-1 bg-blue-600 text-white rounded" onclick="format('italic')"><i>I</i></button>
+    <button type="button" class="px-2 py-1 bg-blue-600 text-white rounded" onclick="format('underline')"><u>U</u></button>
+    <button type="button" class="px-2 py-1 bg-gray-600 text-white rounded" onclick="format('insertUnorderedList')">• List</button>
+    <button type="button" class="px-2 py-1 bg-gray-600 text-white rounded" onclick="format('insertOrderedList')">1. List</button>
+    <input type="color" onchange="formatColor(this.value)" class="w-10 h-8 rounded">
+    <select onchange="formatFont(this.value)" class="border rounded px-2 py-1">
+      <option value="">Font</option>
+      <option value="Arial">Arial</option>
+      <option value="Georgia">Georgia</option>
+      <option value="Courier New">Courier New</option>
+      <option value="Times New Roman">Times New Roman</option>
+    </select>
+  </div>
+
+  <!-- Editable div -->
+  <div id="detailsEditor" class="w-full px-4 py-2 border rounded-md min-h-[150px] bg-white" contenteditable="true">
+    Type course details here...
+  </div>
+
+  <!-- Hidden input to store HTML -->
+  <input type="hidden" name="details" id="detailsInput">
+</div>
+
+<script>
+  const editor = document.getElementById('detailsEditor');
+  const input = document.getElementById('detailsInput');
+
+  // Update hidden input before submitting
+  editor.closest('form').addEventListener('submit', () => {
+    input.value = editor.innerHTML;
+  });
+
+  function format(command) {
+    document.execCommand(command, false, null);
+    editor.focus();
+  }
+
+  function formatColor(color) {
+    document.execCommand('foreColor', false, color);
+    editor.focus();
+  }
+
+  function formatFont(font) {
+    document.execCommand('fontName', false, font);
+    editor.focus();
+  }
+</script>
+
+      <div>
+        <label for="price" class="block font-medium mb-1">Price</label>
+        <input type="number" id="price" name="price" placeholder="Enter Price" required
+               class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+      </div>
+
+            <label class="block text-gray-600 font-semibold">Upload New Picture</label>
+            <input type="file" name="course_pic" accept="image/*"
+                   class="w-full border rounded-lg p-2">
+      <div class="text-center">
+        <input type="submit" value="Add Course"
+               class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 cursor-pointer">
+      </div>
+    </form>
+
+
+
+
+        </form>
+    {% if msg %}
+      <p class="mt-4 text-center text-green-600 font-semibold">{{msg}}</p>
+    {% endif %}
+  </div>
+
+</body>
+</html>

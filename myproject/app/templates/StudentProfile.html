@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+<!-- ✅ Navbar -->
+<nav class="bg-indigo-600 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16 items-center">
+
+            <!-- Logo -->
+            <div class="flex-shrink-0 text-white font-bold text-xl">
+                🎓 Student Portal
+            </div>
+
+            <!-- Links -->
+            <div class="hidden md:flex space-x-6 text-white font-medium">
+                <a href="../StudentHome/" class="hover:text-gray-200">Home</a>
+                <a href="../MyCourse/" class="hover:text-gray-200">My Courses</a>
+                <a href="../StudentProfile/" class="hover:text-gray-200">Profile</a>
+                <a href="../Logout/" class="hover:text-gray-200">Logout</a>
+
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- ✅ Profile Card -->
+<div class="flex-grow flex items-center justify-center p-6">
+    <div class="bg-white shadow-2xl rounded-2xl w-full max-w-2xl p-8">
+        <h1 class="text-3xl font-bold text-center text-indigo-600 mb-6">Student Profile</h1>
+
+        {% if obj %}
+        {% for d in obj %}
+        <div class="space-y-3 text-gray-700">
+            <p><span class="font-semibold">Name:</span> {{d.name}}</p>
+            <p><span class="font-semibold">Email:</span> {{d.email}}</p>
+            <p><span class="font-semibold">Contact:</span> {{d.contact}}</p>
+            <p><span class="font-semibold">Address:</span> {{d.address}}</p>
+            <p><span class="font-semibold">Phone:</span> {{d.phone}}</p>
+            <p><span class="font-semibold">Gender:</span> {{d.gender}}</p>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex justify-center gap-4 mt-8">
+            <form action="../EditStudentProfile/" method="post">
+                {% csrf_token %}
+                <button type="submit"
+                        class="px-6 py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 shadow-md transition">
+                    ✏️ Edit
+                </button>
+            </form>
+
+            <form action="../ChangeStudentPassword/" method="post">
+                {% csrf_token %}
+                <button type="submit"
+                        class="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 shadow-md transition">
+                    🔑 Change Password
+                </button>
+            </form>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>

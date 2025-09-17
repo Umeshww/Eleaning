@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+ <!-- Navbar -->
+ <nav class="bg-indigo-700 text-white shadow-md">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <h1 class="text-xl font-bold">⚙️ Admin Panel</h1>
+        <div class="space-x-6">
+            <a href="../AdminHome/" class="hover:text-yellow-300">Admin Home</a>
+
+            <a href="../AdminProfile/" class="hover:text-yellow-300">My Profile</a>
+            <a href="../AdminReg" class="hover:text-yellow-300">Admin Register</a>
+            <a href="../ShowAdmin" class="hover:text-yellow-300">Show Admin</a>
+            <a href="../ShowStudent/" class="hover:text-yellow-300">Show Students</a>
+            <a href="../ShowCourse/" class="hover:text-yellow-300">Show Courses</a>
+            <a href="../Payment/" class="hover:text-yellow-300">Payment</a>
+            <a href="../Logout/" class="hover:text-red-400 font-semibold">Logout</a>
+        </div>
+    </div>
+</nav>
+
+  <div class="container mx-auto mt-6 p-6 bg-white rounded-xl shadow-lg">
+
+    {% if obj %}
+      {% for d in obj %}
+        <!-- Student Info Card -->
+        <div class="bg-gray-50 p-5 rounded-lg shadow mb-6">
+          <h2 class="text-2xl font-semibold mb-4">Student Info</h2>
+          <p><span class="font-bold">Name:</span> {{d.name}}</p>
+          <p><span class="font-bold">Email:</span> {{d.email}}</p>
+          <p><span class="font-bold">Phone:</span> {{d.phone}}</p>
+          <p><span class="font-bold">Address:</span> {{d.address}}</p>
+          <p><span class="font-bold">Contact:</span> {{d.contact}}</p>
+          <p><span class="font-bold">Gender:</span> {{d.gender}}</p>
+
+          <div class="mt-4 flex gap-3">
+            <form action="../EditStudent/" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="email" value="{{d.email}}">
+              <button type="submit" class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Edit</button>
+            </form>
+
+            <form action="../DeleteStudent/" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="email" value="{{d.email}}">
+              <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Delete</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Courses Section -->
+        <div class="bg-gray-50 p-5 rounded-lg shadow">
+          <h2 class="text-2xl font-semibold mb-4">Enrolled Courses</h2>
+
+          <ul class="space-y-6">
+            {% for d in data %}
+              <li class="border p-4 rounded-lg shadow-sm bg-white">
+                {% if d.course %}
+                  <h3 class="text-lg font-bold text-blue-600">{{ d.course.coursename }}</h3>
+                  <p class="text-gray-600">{{ d.course.desc }}</p>
+                  <p class="font-semibold mt-1">Price: ₹{{ d.course.price }}</p>
+                {% endif %}
+
+                <div class="mt-3">
+                  <strong>Status:</strong>
+                  {% if d.payment.status == "pending" %}
+                    <span class="text-orange-500 font-bold">Pending</span>
+                  {% elif d.payment.status == "access" %}
+                    <span class="text-green-600 font-bold">Access Granted</span>
+                  {% else %}
+                    <span class="text-red-600 font-bold">Rejected</span>
+                  {% endif %}
+                </div>
+
+                <!-- Delete course button -->
+                <form action="../Delete/" method="POST" class="mt-2">
+                  {% csrf_token %}
+                  <input type="hidden" name="id" value="{{ d.payment.id }}"/>
+                  <input type="hidden" name="status" value="{{d.payment.status }}"/>
+                  <button type="submit" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">Remove</button>
+                </form>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+      {% endfor %}
+    {% endif %}
+  </div>
+
+</body>
+</html>

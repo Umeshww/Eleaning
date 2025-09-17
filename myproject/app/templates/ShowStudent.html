@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Show Student</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans min-h-screen flex flex-col">
+ <!-- Navbar -->
+ <nav class="bg-indigo-700 text-white shadow-md">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <h1 class="text-xl font-bold">⚙️ Admin Panel</h1>
+        <div class="space-x-6">
+            <a href="../AdminHome/" class="hover:text-yellow-300">Admin Home</a>
+
+            <a href="../AdminProfile/" class="hover:text-yellow-300">My Profile</a>
+            <a href="../AdminReg" class="hover:text-yellow-300">Admin Register</a>
+            <a href="../ShowAdmin" class="hover:text-yellow-300">Show Admin</a>
+            <a href="../ShowStudent/" class="hover:text-yellow-300">Show Students</a>
+            <a href="../ShowCourse/" class="hover:text-yellow-300">Show Courses</a>
+            <a href="../Payment/" class="hover:text-yellow-300">Payment</a>
+            <a href="../Logout/" class="hover:text-red-400 font-semibold">Logout</a>
+        </div>
+    </div>
+</nav>
+<h1 class="text-2xl mt-5 font-bold mb-4 text-center text-gray-800">Show Student</h1>
+
+{% if obj %}
+<div class="overflow-x-auto mt-6">
+  <table class="min-w-full border border-gray-300 bg-white rounded-lg shadow-lg">
+    <thead class="bg-indigo-600 text-white">
+      <tr>
+        <th class="px-6 py-3 text-left">Name</th>
+        <th class="px-6 py-3 text-left">Email</th>
+        <th class="px-6 py-3 text-left">Phone</th>
+        <th class="px-6 py-3 text-left">Contact</th>
+        <th class="px-6 py-3 text-center">Action</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-200">
+      {% for d in obj %}
+      <tr class="{% cycle 'bg-gray-50' 'bg-white' %} hover:bg-indigo-50 transition">
+        <td class="px-6 py-3 text-gray-800">{{ d.name }}</td>
+        <td class="px-6 py-3 text-gray-800">{{ d.email }}</td>
+        <td class="px-6 py-3 text-gray-800">{{ d.phone }}</td>
+        <td class="px-6 py-3 text-gray-800">{{ d.contact }}</td>
+        <td class="px-6 py-3 text-center">
+          <form action="../StudentDash/" method="POST" class="inline-block">
+            {% csrf_token %}
+            <input type="hidden" name="email" value="{{ d.email }}">
+            <button type="submit" name="submit"
+              class="px-4 py-2 bg-green-600 text-white text-sm rounded-lg shadow hover:bg-green-700 transition">
+              View
+            </button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endif %}
+
+{% if msg %}
+  <p class="mt-4 text-center text-red-600 font-semibold">{{ msg }}</p>
+{% endif %}
+
+</body>
+</html>

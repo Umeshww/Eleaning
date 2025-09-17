@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+ <nav class="bg-indigo-700 text-white shadow-md">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <h1 class="text-xl font-bold">⚙️ Admin Panel</h1>
+        <div class="space-x-6">
+            <a href="../AdminHome/" class="hover:text-yellow-300">Admin Home</a>
+
+            <a href="../AdminProfile/" class="hover:text-yellow-300">My Profile</a>
+            <a href="../AdminReg" class="hover:text-yellow-300">Admin Register</a>
+            <a href="../ShowAdmin" class="hover:text-yellow-300">Show Admin</a>
+            <a href="../ShowStudent/" class="hover:text-yellow-300">Show Students</a>
+            <a href="../ShowCourse/" class="hover:text-yellow-300">Show Courses</a>
+            <a href="../Payment/" class="hover:text-yellow-300">Payment</a>
+            <a href="../Logout/" class="hover:text-red-400 font-semibold">Logout</a>
+        </div>
+    </div>
+</nav>
+
+  <!-- Main Content -->
+  <main class="flex-grow flex justify-center items-center px-4 py-8">
+    <div class="w-full max-w-lg bg-white shadow-lg rounded-2xl p-8">
+      <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Admin Profile</h1>
+
+      {% if obj %}
+        {% for d in obj %}
+          <div class="space-y-4">
+            <p class="text-gray-700"><span class="font-semibold">👤 Name:</span> {{d.name}}</p>
+            <p class="text-gray-700"><span class="font-semibold">📧 Email:</span> {{d.email}}</p>
+            <p class="text-gray-700"><span class="font-semibold">📱 Contact:</span> {{d.contact}}</p>
+            <p class="text-gray-700"><span class="font-semibold">🏠 Address:</span> {{d.address}}</p>
+          </div>
+
+          <!-- Buttons -->
+          <div class="flex justify-between mt-8 gap-4">
+            <form action="../EditAdminProfile/" method="post" class="w-1/2">
+              {% csrf_token %}
+              <button type="submit"
+                class="w-full px-5 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg shadow transition">
+                ✏️ Edit
+              </button>
+            </form>
+
+            <form action="../ChangeAdminPassword/" method="post" class="w-1/2">
+              {% csrf_token %}
+              <button type="submit"
+                class="w-full px-5 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg shadow transition">
+                🔑 Change Password
+              </button>
+            </form>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="text-center text-gray-500">No profile data found.</p>
+      {% endif %}
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-200 py-4 text-center text-sm text-gray-600">
+    © 2025 Admin Panel. All rights reserved.
+  </footer>
+
+</body>
+</html>
